@@ -13,38 +13,61 @@
 
 <script type="text/javascript">
 
-
-
-// Max number of letter guesses allowed
-var maxGuesses = 10;
-
-// Show number of guesses remaining
-
-// When evaluating guesses, check to see if the number of guesses is greater than or equal to 10, if so user loses, else keep running until win
-
-
-// Track number of wins
-
-
-
-// Forloop pushing "_" by 1 when the chosenWord length increases
- var generateUnderscore = () => {
-    for (var i = 0; i < chosenWords.length; i++) {
-        underScore.push('_');
-
-        //document.getElementById("hangman").innerHTML
-
-        //var underScore = document.createElement("a");
-
-        //underScores.textContent = chosenWords[i];
-
-        //hangmanSlots.appendChild(underScores);  
-
-   }
-   return underScore;
+// Telling where to place _ on HTML
+var hangman = document.getElementById("hangman");
+var words = ["orange", "apple", "pineapple", "banana"];
+var guessesLeft = 10;
+var guessedLetters = [];
+var randWord = Math.floor(Math.random() * words.length);
+var chosenWords = words[randWord];
+var currentWordArray = chosenWords.split("");
+var blanksArray = [];
+// Loop adding "_" per letter of word
+function blankSpaces() {
+    for (var i = 0; i < currentWordArray.length; i++) {
+        blanksArray.push("_");
+    }
 }
-console.log(generateUnderscore());
+// Printing "_" to hangman div
+function printSpaces() {
+    hangman.textContent = blanksArray.join(" ");
+}
+blankSpaces();
+printSpaces();
+console.log(blanksArray);
 
+// var guess = prompt("Guess a letter to start playing!");
+
+// If/else statement where if the letter guess is right it is revealed or ELSE it is wrong and they get another turn
+
+// helper function
+function evaluateGuess(userGuess) {
+    if (chosenWords.indexOf(userGuess) !== -1) {
+        for (var j = 0; j < chosenWords.length; j++) {
+            if (chosenWords[j] === userGuess) {
+                blanksArray[j] = userGuess;
+            }
+            // update ui with correct guesses
+            guessesLeft--;
+        }
+    } else {
+            // update ui to say incorrect guess, try again
+            guessesLeft--;
+        }
+    }
+}
+
+// Capture users guess; when user presses a key this event will happen
+document.addEventListener('keypress', e => {
+    // var keyword = String.fromCharCode(e.keyCode);
+    var userGuess = e.key.toLowerCase();
+
+    if (guessesLeft > 0) {
+        evaluateGuess(userGuess);
+    } else {
+        // update ui to say "you lost the game"
+    }
+});
 
 </script>
 
