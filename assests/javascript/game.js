@@ -1,19 +1,22 @@
-// all variables
-var hangman = document.getElementById("hangman");
+// variables
 var words = ["orange", "apple", "pineapple", "banana"];
 var randWord = Math.floor(Math.random() * words.length);
 var chosenWords = words[randWord];
-    console.log(chosenWords);
 var currentWordArray = chosenWords.split("");
-    console.log(currentWordArray);
 var blanksArray=[];
-var userGuessArray = [];
-var guessesLeft = 3;
-var leftGuesses = [];
+var userGuessArray =[];
+var guessesLeft = 10;
+document.getElementById("leftguesses").textContent = guessesLeft;
 var wins = 0;
+document.getElementById("win-count").textContent = wins;
 var losses = 0;
-var winCountElement = document.getElementById("win-count");
+document.getElementById("loss-count").textContent = losses;
 var incorrectArray = [];
+// var remainingLetters = chosenWords.length;
+var guessesCountEl = document.getElementById("leftguesses");
+var lossesCountEl = document.getElementById("loss-count")
+var winCountEl = document.getElementById("win-count");
+var hangman = document.getElementById("hangman");
 
 // functions spliting the current word's # of letters into "_"
 function blankSpaces () { 
@@ -28,23 +31,28 @@ blankSpaces();
 printSpaces ();
 console.log(blanksArray);
 
-// tells how many guesses there are left 
-// need to decrement the guess by one every time user guess's
-function guesses() {
-    var guessesLeft = 3;
-    document.getElementById("leftguesses").textContent = guessesLeft;
-}
-guesses ();
+// press any key to get started
 
-// reveals correct user guess by replacing "_" with correct guess
+// reveals correct user guess by replacing "_" with correct guess and decrementing guesses left with each guess
 document.addEventListener('keypress', event => {
     var userGuess = event.key.toLowerCase(); {
-        console.log(userGuess);
-    userGuessArray.push(userGuess);
-    guessesLeft--;
-        console.log(guessesLeft);
-    leftGuesses.push(guessesLeft);
+        userGuessArray.push(userGuess);
+        guessesLeft--;
+        guessesCountEl.textContent = guessesLeft;
     }
+
+// if/else conditional stating loss or win 
+if (guessesLeft === 0) {
+    losses++;
+    lossesCountEl.textContent = losses;
+    // reset game after loss
+} else if (currentWordArray.toString() === blanksArray.toString()) {
+    wins++;
+    winCountEl.textContent = wins;
+    // reset game after win
+}
+
+    // if/else conditional printing guessed letters into blanksArray or incorrectArray
     if (chosenWords.indexOf(userGuess)!== -1) {
         for (var j = 0; j < chosenWords.length; j++) {
             if (chosenWords[j] === userGuess) {
@@ -52,14 +60,9 @@ document.addEventListener('keypress', event => {
                 document.getElementById("hangman").textContent = blanksArray.join(" ")
                 } 
             }
-        }
-            else { 
+        } else { 
                 incorrectArray.push(userGuess);
                 console.log("incorrectArray");
                 document.getElementById("incorrect-guesses").textContent = incorrectArray.join(" ")
-            }
-})
-
-// Define how to win the game
-// If guessesLeft === 0 then the user loses
-// If user guesses word they win and ++ to wins
+                }
+    })
