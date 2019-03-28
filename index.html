@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="assests/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Trivia Game</title>
 </head>
 <body>
 
-<h1>
-    Hangman!
-</h1>
+<div class="jumbotron">
+    <p id= jumbotron>
+        Fruity Hangman!
+    </p>
+</div>
 
-<h2>
+
+<h2 class="title">
     Press any key to get started!
 </h2>
 
 <!--Where wins will be stored-->
-<h2>
+<h2 class="wins">
     <div>Wins:</div>
     <div id="win-count"></div>
 </h2>
 
 <!--Where wins will be stored-->
-<h2>
+<h2 class="losses">
     <div>Losses:</div>
     <div id="loss-count"></div>
 </h2>
@@ -33,13 +38,13 @@
 
 
 <!--Where guessed letters will be stored-->
-<h2>
+<h2 class="incorrect-guesses">
     <div>Letters guessed:</div>
     <div id="incorrect-guesses"></div>
 </h2>
 
 <!--Where guesses remaining will be stored-->
-<h2>
+<h2 class="leftguesses">
     <div>Number of guesses remaining:</div>
     <div id="leftguesses"></div>
 </h2>

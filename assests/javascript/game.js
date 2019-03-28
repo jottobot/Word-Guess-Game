@@ -3,8 +3,8 @@ var words = ["orange", "apple", "pineapple", "banana"];
 var randWord = Math.floor(Math.random() * words.length);
 var chosenWords = words[randWord];
 var currentWordArray = chosenWords.split("");
-var blanksArray=[];
-var userGuessArray =[];
+var blanksArray = [];
+var userGuessArray = [];
 var guessesLeft = 10;
 document.getElementById("leftguesses").textContent = guessesLeft;
 var wins = 0;
@@ -18,17 +18,32 @@ var lossesCountEl = document.getElementById("loss-count")
 var winCountEl = document.getElementById("win-count");
 var hangman = document.getElementById("hangman");
 
+function reset() {
+    var words = ["orange", "apple", "pineapple", "banana"];
+    var randWord = Math.floor(Math.random() * words.length);
+    guessesLeft = 10;
+    guessesSoFar = [];
+    computerPick = chosenWords();
+    answerArray = [];
+for (var i = 0; i < currentWordArray.length; i++) {
+    blanksArray.push("_");
+};
+remainingLetters = computerPick.length;
+};
+
+
+
 // functions spliting the current word's # of letters into "_"
-function blankSpaces () { 
-    for (var i=0; i < currentWordArray.length; i++) {
-    blanksArray.push("_"); 
+function blankSpaces() {
+    for (var i = 0; i < currentWordArray.length; i++) {
+        blanksArray.push("_");
     }
 }
-function printSpaces () {
+function printSpaces() {
     hangman.textContent = blanksArray.join(" ");
-}    
+}
 blankSpaces();
-printSpaces ();
+printSpaces();
 console.log(blanksArray);
 
 // press any key to get started
@@ -41,28 +56,30 @@ document.addEventListener('keypress', event => {
         guessesCountEl.textContent = guessesLeft;
     }
 
-// if/else conditional stating loss or win 
-if (guessesLeft === 0) {
-    losses++;
-    lossesCountEl.textContent = losses;
-    // reset game after loss
-} else if (currentWordArray.toString() === blanksArray.toString()) {
-    wins++;
-    winCountEl.textContent = wins;
-    // reset game after win
-}
+    // if/else conditional stating loss or win 
+    if (guessesLeft === 0) {
+        losses++;
+        lossesCountEl.textContent = losses;
+        reset();
+        // reset game after loss
+    } else if (currentWordArray.toString() === blanksArray.toString()) {
+        wins++;
+        winCountEl.textContent = wins;
+        reset();
+        // reset game after win
+    }
 
     // if/else conditional printing guessed letters into blanksArray or incorrectArray
-    if (chosenWords.indexOf(userGuess)!== -1) {
+    if (chosenWords.indexOf(userGuess) !== -1) {
         for (var j = 0; j < chosenWords.length; j++) {
             if (chosenWords[j] === userGuess) {
                 blanksArray[j] = userGuess;
                 document.getElementById("hangman").textContent = blanksArray.join(" ")
-                } 
             }
-        } else { 
-                incorrectArray.push(userGuess);
-                console.log("incorrectArray");
-                document.getElementById("incorrect-guesses").textContent = incorrectArray.join(" ")
-                }
-    })
+        }
+    } else {
+        incorrectArray.push(userGuess);
+        console.log("incorrectArray");
+        document.getElementById("incorrect-guesses").textContent = incorrectArray.join(" ")
+    }
+});
