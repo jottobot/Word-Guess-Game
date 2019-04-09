@@ -1,3 +1,3 @@
 # Word-Guess-Game
 
-Triva game in which the user has a certain number of time to answer a select number of questions about the human body.
+Classic hang-man game where user guesses letters to find the mystery word! HINT: theme is fruit.
