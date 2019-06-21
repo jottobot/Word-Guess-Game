@@ -1,85 +1,114 @@
 // variables
-var words = ["orange", "apple", "pineapple", "banana"];
-var randWord = Math.floor(Math.random() * words.length);
-var chosenWords = words[randWord];
-var currentWordArray = chosenWords.split("");
-var blanksArray = [];
-var userGuessArray = [];
-var guessesLeft = 10;
-document.getElementById("leftguesses").textContent = guessesLeft;
+var words = ["orange", "apple", "pineapple", "banana", "peach", "nectarine", "pear", "kiwi", "blueberry", "strawberry"];
+
+// global variables
+var numWins = document.getElementById("win-count");
+var numLoss = document.getElementById("loss-count");
+var currentWord = document.getElementById("hangman");
+var guessesLeft = document.getElementById("guessesleft");
+var wrongGuess = document.getElementById("incorrect-guesses");
+///
 var wins = 0;
-document.getElementById("win-count").textContent = wins;
 var losses = 0;
-document.getElementById("loss-count").textContent = losses;
-var incorrectArray = [];
-// var remainingLetters = chosenWords.length;
-var guessesCountEl = document.getElementById("leftguesses");
-var lossesCountEl = document.getElementById("loss-count")
-var winCountEl = document.getElementById("win-count");
-var hangman = document.getElementById("hangman");
+var numGuess;
+///
+var lettersGuessed;
+///
+var randWord;
+var randArray;
+//
+var blanksArray;
+//
+var userGuess;
 
-function reset() {
-    var words = ["orange", "apple", "pineapple", "banana"];
-    var randWord = Math.floor(Math.random() * words.length);
-    guessesLeft = 10;
-    guessesSoFar = [];
-    computerPick = chosenWords();
-    answerArray = [];
-for (var i = 0; i < currentWordArray.length; i++) {
-    blanksArray.push("_");
-};
-remainingLetters = computerPick.length;
-};
+//Print the number of Wins//
+function printWins() {
+    numWins.textContent = "Wins: " + wins;
+}
+printWins();
+
+//Print the number of Losses//
+function printLosses() {
+    numLoss.textContent = "Losses: " + losses;
+}
+printLosses();
+
+
+// start game
+function start() {
+    randWord = words[Math.floor(Math.random() * words.length)];
+    console.log(randWord);
+    lettersGuessed = [];
+    numGuess = 15;
+    guessesLeft.textContent = numGuess;
+    randArray = [];
+    for (var i = 0; i < randWord.length; i++) {
+        randArray.push(randWord[i]);
+    }
+    return randArray;
+}
+start();
 
 
 
-// functions spliting the current word's # of letters into "_"
+// creating and printing "_" spaces 
 function blankSpaces() {
-    for (var i = 0; i < currentWordArray.length; i++) {
+    blanksArray = [];
+    for (var i = 0; i < randWord.length; i++) {
         blanksArray.push("_");
     }
+    return blanksArray;
 }
 function printSpaces() {
-    hangman.textContent = blanksArray.join(" ");
+    currentWord.textContent = blanksArray.join(" ");
 }
+
 blankSpaces();
 printSpaces();
 console.log(blanksArray);
 
-// press any key to get started
-
-// reveals correct user guess by replacing "_" with correct guess and decrementing guesses left with each guess
-document.addEventListener('keypress', event => {
-    var userGuess = event.key.toLowerCase(); {
-        userGuessArray.push(userGuess);
-        guessesLeft--;
-        guessesCountEl.textContent = guessesLeft;
-    }
-
-    // if/else conditional stating loss or win 
-    if (guessesLeft === 0) {
-        losses++;
-        lossesCountEl.textContent = losses;
-        reset();
-        // reset game after loss
-    } else if (currentWordArray.toString() === blanksArray.toString()) {
-        wins++;
-        winCountEl.textContent = wins;
-        reset();
-        // reset game after win
-    }
-
-    // if/else conditional printing guessed letters into blanksArray or incorrectArray
-    if (chosenWords.indexOf(userGuess) !== -1) {
-        for (var j = 0; j < chosenWords.length; j++) {
-            if (chosenWords[j] === userGuess) {
-                blanksArray[j] = userGuess;
-                document.getElementById("hangman").textContent = blanksArray.join(" ")
+// function when user presses a key
+document.onkeyup = function (event) {
+    userGuess = event.key.toLowerCase();
+    
+    if ((event.which <= 90 && event.which >= 65) && lettersGuessed.indexOf(userGuess) === -1) {
+        lettersGuessed.push(userGuess);
+        console.log(lettersGuessed);
+        // $("#incorrect-guesses").append(lettersGuessed);
+        if (randArray.indexOf(userGuess) > -1) {
+            for (var j = 0; j < randArray.length; j++) {
+                if (randArray[j] == userGuess) {
+                    blanksArray[j] = userGuess;
+                    console.log(blanksArray);
+                    printSpaces();
+                    // document.getElementById("hangman").textContent = randArray.join(" ")
+                }
+            }
+            if (randArray.toString() === blanksArray.toString()) {
+                wins++;
+                printWins();
+                start();
+                lettersGuessed = [];
+                blanksArray = [];
+                blankSpaces();
+                printSpaces();
+                wrongGuess.textContent = "";
+            }
+        } else {
+            wrongGuess.textContent += userGuess + " ";
+            numGuess--;
+            guessesLeft.textContent = numGuess;
+            if (numGuess === 0) {
+                losses++;
+                printLosses();
+                start();
+                lettersGuessed = [];
+                blanksArray = [];
+                blankSpaces();
+                printSpaces();
+                wrongGuess.textContent = "";
             }
         }
-    } else {
-        incorrectArray.push(userGuess);
-        console.log("incorrectArray");
-        document.getElementById("incorrect-guesses").textContent = incorrectArray.join(" ")
+
     }
-});
+};

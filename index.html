@@ -1,59 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="assests/css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Mali&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <title>Trivia Game</title>
 </head>
+
 <body>
 
-<div class="jumbotron">
-    <p id= jumbotron>
-        Fruity Hangman!
-    </p>
-</div>
+    <div class="container">
 
+        <div class="jumbotron">
+            <p id=jumbotrontitle>
+                Fruity Hangman!
+            </p>
+        </div>
 
-<h2 class="title">
-    Press any key to get started!
-</h2>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <p id="openingtext">
+                    Welcome to Fruity Hangman, a word guessing game. Each mystery word will be fruit themed. Press any
+                    key to get started. Happy guessing!
+                </p>
+            </div>
+            <div class="col-2"></div>
+        </div>
 
-<!--Where wins will be stored-->
-<h2 class="wins">
-    <div>Wins:</div>
-    <div id="win-count"></div>
-</h2>
+        <!-- Div where underscores will appear-->
+        <div class="row">
+            <div id="hangman"></div>
+        </div>
 
-<!--Where wins will be stored-->
-<h2 class="losses">
-    <div>Losses:</div>
-    <div id="loss-count"></div>
-</h2>
+        <div class="row">
+            <div class="col-6">
+                <!--Where wins will be stored-->
+                <h4 class="wins">
+                    <div id="win-count"></div>
+                </h4>
+            </div>
 
-<!-- Div where underscores will appear-->
-<div id="hangman"></div>
+            <div class="col-6">
+                <!--Where wins will be stored-->
+                <h4 class="losses">
+                    <div id="loss-count"></div>
+                </h4>
+            </div>
+        </div>
 
+        <div class="row">
+            <!--Where guessed letters will be stored-->
+            <div class="col-6">
+                <h2 class="incorrect-guesses">
+                    <div>Letters guessed:</div>
+                    <div id="incorrect-guesses"></div>
+                </h2>
+            </div>
 
-<!--Where guessed letters will be stored-->
-<h2 class="incorrect-guesses">
-    <div>Letters guessed:</div>
-    <div id="incorrect-guesses"></div>
-</h2>
+            <!--Where guesses remaining will be stored-->
+            <div class="col-6">
+                <h2 class="leftguesses">
+                    <div>Number of guesses remaining:</div>
+                    <div id="guessesleft"></div>
+                </h2>
+            </div>
+        </div>
 
-<!--Where guesses remaining will be stored-->
-<h2 class="leftguesses">
-    <div>Number of guesses remaining:</div>
-    <div id="leftguesses"></div>
-</h2>
+    </div>
 
-
-
-<script src="assests/javascript/game.js">
-</script>
+    <script src="assests/javascript/game.js"></script>
 
 </body>
-</html>
 
+</html>
