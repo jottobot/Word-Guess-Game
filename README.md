@@ -8,6 +8,7 @@ Fruity Hangman is a simple word guessing game with the theme of fruits! The user
 * Bootstrap
 * HTML
 * CSS
+* Javascript
 
 ## Deployed
 [Link](https://jottobot.github.io/Word-Guess-Game/ "Fruity Hangman")

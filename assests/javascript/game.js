@@ -111,4 +111,12 @@ document.onkeyup = function (event) {
         }
 
     }
+    else if (event.which <= 90 && event.which >= 65) {
+      
+      alert("You have already guessed this letter.");
+  }
+  //Run this if a number is pressed
+  else if (event.which >= 48 && event.which <= 57) {
+      alert("Please only choose letters A-Z.");
+  }
 };
